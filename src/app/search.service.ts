@@ -163,6 +163,7 @@ export class SearchService {
     guild.createdUtc = comment.created_utc;
     const plainText = markdownToTxt(comment.body);
     guild.fullPlainText = plainText;
+    guild.link = comment.permalink;
 
     try {
       const nameRegex = /guild name:([^\n]*)\n/gmi;
@@ -247,6 +248,7 @@ export class GuildListing {
 
   fullPlainText: string;
   error: string;
+  link: string;
 }
 
 export class Availability {

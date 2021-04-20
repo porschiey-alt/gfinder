@@ -97,10 +97,10 @@ export class AppComponent implements OnInit {
 
       if (g.raidAvailability.days.length === 0) inDayRange = true;
 
-      if (!inTimeRange || !inDayRange) {
-        // these were filtered out due to time/day ranges
-        console.debug(g.name, `timeR: ${inTimeRange}, dayR: ${inDayRange}`, g);
-      }
+      // if (!inTimeRange || !inDayRange) {
+      //   // these were filtered out due to time/day ranges
+      //   console.debug(g.name, `timeR: ${inTimeRange}, dayR: ${inDayRange}`, g);
+      // }
       return inTimeRange && inDayRange;
     });
   }
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
     } else {
       this.raidDays.splice(dayIx, 1);
     }
-    console.debug(this.raidDays);
+    this.runFilter();
   }
 
   public hasSelectedDay(day: string): boolean {

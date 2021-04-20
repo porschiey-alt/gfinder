@@ -32,12 +32,12 @@
 
     <label for="customRange1" class="form-label">Raid Start Time: {{ parseTime(startTime) }} </label>
     <input type="range" class="form-range" id="customRange1" min="0" max="2300" step="50" #startTimeEle
-      (input)="startTime = startTimeEle.value" value="0">
+      (input)="startTime = startTimeEle.value" value="0" (change)="runFilter()">
 
     <br />
     <label for="customRange2" class="form-label">Raid End Time: {{ parseTime(endTime) }} </label>
     <input type="range" class="form-range" id="customRange2" min="0" max="2350" step="50" #endTimeEle
-      (input)="endTime = endTimeEle.value" value="2350">
+      (input)="endTime = endTimeEle.value" value="2350" (change)="runFilter()">
 
     <br /><br />
 
@@ -57,7 +57,7 @@
 
         <div class="row">
           <div class="col">
-            {{ guild.name | unescape:'recursive'}}
+            <a href="https://www.reddit.com{{guild.link}}" target="_blank">{{ guild.name | unescape:'recursive'}}</a>
           </div>
           <div *ngIf="guild.error" style="font-size: 9pt;">
             Unable to parse guild listing: {{ guild.error }}
