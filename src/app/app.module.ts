@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     HTMLEscapeUnescapeModule,
