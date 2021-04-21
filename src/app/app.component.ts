@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Day, GuildListing, SearchService } from './search.service';
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,15 @@ export class AppComponent implements OnInit {
 
   public Day = Day;
 
-  constructor(private searchSvc: SearchService) { }
+  constructor(private searchSvc: SearchService) { 
+
+    const appInsights = new ApplicationInsights({ config: {
+      instrumentationKey: '82f320b4-5ebe-40b0-8106-6dd72e2e16f1'
+    } });
+    appInsights.loadAppInsights();
+    appInsights.trackPageView();
+
+  }
   async ngOnInit(): Promise<void> {
 
     this.guilds = await this.searchSvc.loadLatestGuildListings();
