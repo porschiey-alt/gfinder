@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   public realmFilter: string = null;
   public typeFilter: string = 'any';
   public searchText: string = null;
+  public includeBads: boolean = false;
 
   public factions: any[] = [{ name: 'Either Faction', value: 'any' }, { name: 'Horde', value: 'horde' }, { name: 'Alliance', value: 'alliance' }];
   public factionFilterVal: string = 'any';
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit {
 
   public runFilter(): void {
     console.debug('runFilter()');
-    this.filteredGuilds = [...this.guilds.filter(g => g.name !== '???')];
+ 
+    this.filteredGuilds = this.includeBads ? [...this.guilds] : [...this.guilds.filter(g => g.name !== '???')];
 
     if (this.realmFilter !== null) {
       this.filteredGuilds = this.filteredGuilds.filter(g => {

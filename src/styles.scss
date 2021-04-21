@@ -8,3 +8,14 @@
 .alli-blue {
     color: #00FF;
 }
+
+.link-primary {
+    text-decoration: none;
+    :hover{
+        cursor: pointer !important;
+    }
+}
+
+a:hover{
+    cursor: pointer !important;
+}

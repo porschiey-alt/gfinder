@@ -45,7 +45,14 @@
       (ngModelChange)="runFilter()">
     <span style="font-size: 8pt;">Note: This scans the entire comment-text for a match. It may match some text in the
       additional information, not seen until you expand a row below.</span>
-
+      
+    <br /><br />
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="inclBads" [(ngModel)]="includeBads" (change)="runFilter()">
+      <label class="form-check-label" for="inclBads">
+        Include guild listings that failed to parse
+      </label>
+    </div>
     <br /><br />
     <!-- <a href="/players">Search for players instead...</a> <br /> -->
     <hr>
@@ -57,7 +64,8 @@
 
         <div class="row">
           <div class="col">
-            <a href="https://www.reddit.com{{guild.link}}" target="_blank">{{ guild.name | unescape:'recursive'}}</a>
+            <a (click)="guild.expanded = !guild.expanded;" class="link-primary">{{ guild.name |
+              unescape:'recursive'}}</a>
           </div>
           <div *ngIf="guild.error" style="font-size: 9pt;">
             Unable to parse guild listing: {{ guild.error }}
@@ -90,7 +98,24 @@
           </div>
         </div>
         <div class="row" *ngIf="guild.expanded">
-          {{ guild.additionalInfo }}
+          <div class="container-fluid">
+            <br />
+            <a href="https://www.reddit.com{{guild.link}}" target="_blank">View on Reddit</a> <br /><br />
+
+            <b>Openings:</b>{{ guild.openings }}
+
+            <br /><br /><b> Additional Info: </b>
+            {{ guild.additionalInfo }}
+
+            <br /><br /><button (click)="guild.showPlainText = !guild.showPlainText" class="btn btn-info"
+              style="width: 160pt;">
+              Toggle Full Reddit text
+            </button>
+            <span *ngIf="guild.showPlainText">
+              <br /><br />
+              {{ guild.fullPlainText | unescape:'recursive'}}
+            </span>
+          </div>
         </div>
       </li>
     </ul>
