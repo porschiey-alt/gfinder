@@ -22,7 +22,7 @@ export class SearchService {
 
     // Find days listed
     const daySet: Set<Day> = new Set<Day>();
-    const dayFinder = /\b((mon|tues|wed(nes)?(s)?|thur(s)?|fri|sat(ur)?|sun)(day)?)\b/gmi;
+    const dayFinder = /\b((mon|tue|wed(nes)?(s)?|thur(s)?|fri|sat(ur)?|sun)(day)?)\b/gmi;
     const matchesFromSched = raidSchedule.match(dayFinder);
     const matchesFromTimes = raidTimes.match(dayFinder);
     const dayMatches = [...(matchesFromSched !== null ? matchesFromSched : []), ...(matchesFromTimes !== null ? matchesFromTimes : [])];
@@ -31,7 +31,7 @@ export class SearchService {
     });
 
     // Find times listed
-    const timeRangeFinder = /[\d]{1,2}.{0,3}-[\d]{1,2}.{0,3}\b|[\d]{1,2}:[\d]{1,2}.{0,2}-[\d]{1,2}:[\d]{1,2}.{0,2}|[\d].{0,4}-( )?[\d]{0,2}.{0,2}/gmi;
+    const timeRangeFinder = /[\d]{1,2}.{0,3}-[\d]{1,2}.{0,3}\b|[\d]{1,2}:[\d]{1,2}.{0,2}-[\d]{1,2}:[\d]{1,2}.{0,2}|[\d].{0,4}-( )?[\d]{0,2}.{0,2}|[\d]{1,2}:[\d]{1,2}.{0,2} - [\d]{1,2}:[\d]{1,2}.{0,2}/gmi;
     const rangesFromSched = raidSchedule.match(timeRangeFinder);
     const rangesFromTimes = raidTimes.match(timeRangeFinder);
     const timeMatches = [...(rangesFromSched !== null ? rangesFromSched : []), ...(rangesFromTimes !== null ? rangesFromTimes : [])];
@@ -196,6 +196,9 @@ export class SearchService {
 
       const debug = false; //guild.name.indexOf('Max Power') !== -1;
       guild.raidAvailability = this.discoverRaidAvailability(guild.raidTimesStr.toLowerCase(), guild.raidScheduleStr.toLowerCase(), debug);
+      if (guild.name.indexOf('Shattered Leg') !== -1) {
+        console.log('shattered avail', guild);
+      }
 
       const openingsRegex = /openings:([^\n]*)\n/gmi;
       guild.openings = this.matchOrError(openingsRegex, plainText);
